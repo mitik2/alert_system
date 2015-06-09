@@ -89,8 +89,12 @@ class field(empty_field):
 
 
     def generate_table(self,download_link=""):
-        self.TableObj[self.soft_name][self.is_official] = self
-        self.TableStr[self.soft_name][self.is_official] = self.return_date()
+        """
+        This method puts the Object to the object table and the date to the date table.
+        This method is very generic and we don't provide it with exact location.
+        :param download_link: This is the download link. If empty nothing would be added to the table.
+        """
+        self.generate_table()
         if download_link!="":
             self.TableStr[self.soft_name][2] = download_link
 
@@ -117,6 +121,12 @@ class field(empty_field):
         raise KeyError('ERROR: No new releases in the rss feed, please change RSS url or REGEX matching pattern')
 
     def get_data_chrome_driver(self):
+        """
+        Grabs releases from the official Selenium Chrome driver xml directory.
+        The method throws KeyError if it can't find any release.
+        This is a really general method. Probably there won't be changes.
+        :return:
+        """
         try:
             link = self.data_dic[self.name]["link"]
             self.version = urllib2.urlopen(link).read()
@@ -167,8 +177,7 @@ class field(empty_field):
                 self.version = m.group(1)
                 self.date = datetime.datetime.strptime(row.contents[4].get_text(), self.data_dic[self.name]["date_format"])
 
-                self.TableObj[self.soft_name][self.is_official] = self
-                self.TableStr[self.soft_name][self.is_official] = self.return_date()
+                self.generate_table()
                 return
 
         raise KeyError('ERROR: No new releases in the Apple site, please change url or matching pattern')
