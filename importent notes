@@ -1,0 +1,7 @@
+Note that in the json file in the Safari section the matching pattern is:
+    Safari.+?(\d.+?\d)($|,)
+the end group is not necessary but is the only way to insert the end sign.
+Make sure that you use groups because there will be 2 matches here.
+
+
+http://chromedriver.storage.googleapis.com/index.html?

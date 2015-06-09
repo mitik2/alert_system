@@ -1,0 +1,12 @@
+{
+    "ios beta": {
+        "format": "iOS\\s(.+?)\\sbeta\\s(.+?)\\s+.",
+        "link": "https://developer.apple.com/news/rss/news.rss", 
+        "type": "rss"
+    }, 
+    "ios official": {
+        "color": "#3d4",
+        "link": "http://en.wikipedia.org/wiki/History_of_iOS", 
+        "type": "html_table_wiki"
+    }
+}

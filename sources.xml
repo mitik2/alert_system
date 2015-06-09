@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<data>
+    <element name="ios beta">
+        <type>rss</type>
+        <link>https://developer.apple.com/news/rss/news.rss</link>
+        <format>iOS\s(.+?)\sbeta\s(.+?)\s+.</format>
+        <date type="label">
+            <label>pubDate</label>
+        </date>
+    </element>
+    <element name="ios official">
+        <type>html_table_wiki</type>
+        <link>http://en.wikipedia.org/wiki/History_of_iOS</link>
+        <format>background:\#3d4.+?&lt;b&gt;(.+?)&lt;\/b&gt;.+?td&gt;.*?&lt;td&gt;.*?&lt;td&gt;(\w+).+?;([0-9]+?).+?([0-9]+?)&lt;</format>
+        <color>#3d4</color>
+        <date type="distance">
+            <distance>2</distance>
+        </date>
+    </element>
+</data>

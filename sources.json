@@ -1,0 +1,42 @@
+{
+    "ios beta": {
+        "format": "iOS\\s(.+?)\\sbeta\\s(.+?)\\s+.",
+        "link": "https://developer.apple.com/news/rss/news.rss",
+        "soft_name": "iOS",
+        "type": "rss"
+    },
+    "ios official": {
+        "link": "https://support.apple.com/en-us/HT201222",
+        "type": "html_table_apple",
+        "format": "iOS.+?(\\d.+?\\d)",
+        "soft_name": "iOS",
+        "date_format": "%d %b %Y"
+
+    },
+    "safari official": {
+        "link": "https://support.apple.com/en-us/HT201222",
+        "type": "html_table_apple",
+        "format": "Safari.+?(\\d.+?\\d)($|,)",
+        "soft_name": "Safari",
+        "date_format": "%d %b %Y"
+
+    },
+    "firefox official": {
+        "format": "data-latest-firefox=\"(.+?)\"",
+        "format2": "first offered to Release channel users on (.+?\\d\\d\\d\\d)",
+        "link": "http://www.mozilla.org/en-US/firefox/releases/",
+        "date_link_beg": "http://www.mozilla.org/en-US/firefox/",
+        "date_link_end": "/releasenotes/",
+        "type": "hidden_in_html_source",
+        "soft_name": "Firefox",
+        "date_format": "%B %d, %Y"
+
+    },
+    "chrome webdrive": {
+        "link": "http://www.mozilla.org/en-US/firefox/releases/",
+        "type": "plain_file",
+        "soft_name": "iOS",
+        "date_format": "%B %d, %Y"
+
+    }
+}

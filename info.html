@@ -1,0 +1,28 @@
+<TABLE cellpadding="4" style="border: 1px solid #000000; border-collapse: collapse;" border="1">
+
+
+
+ <TR>
+  <TH>Software</TH>
+  <TH>Latest beta release</TH>
+  <TH>Latest release</TH>
+  <TH>Link to update if available</TH>
+ </TR>
+
+
+
+    {% for item in listFields %}
+         <TR>
+          <TD>{{ escape(item) }}</TD>
+          <TD>{{ escape(TableStr[item][0]) }}</TD>
+          <TD>{{ escape(TableStr[item][1]) }}</TD>
+             {% if escape(TableStr[item][2])!="" %}
+                <TD><a href="{{ escape(TableStr[item][2]) }}"">Download Page</a></TD>
+             {% else %}
+                <TD>&nbsp;</TD>
+             {% end %}
+         </TR>
+
+    {% end %}
+
+</TABLE>
