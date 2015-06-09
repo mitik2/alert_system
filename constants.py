@@ -20,7 +20,7 @@ listFields = [
     'Safari',
     'IE',
     'Selenium new',
-    'Selenium new python bindings for webdrivers',
+    'Selenium Chrome webdriver',
     ]
 
 waiting_time_hours = 1

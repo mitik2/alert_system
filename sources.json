@@ -33,9 +33,12 @@
 
     },
     "chrome webdrive": {
-        "link": "http://www.mozilla.org/en-US/firefox/releases/",
+        "link": "http://chromedriver.storage.googleapis.com/LATEST_RELEASE",
+        "link2": "http://chromedriver.storage.googleapis.com/",
+        "link_download": "http://chromedriver.storage.googleapis.com/index.html?path=",
+        "format": "%Y-%m-%d",
         "type": "plain_file",
-        "soft_name": "iOS",
+        "soft_name": "Selenium Chrome webdriver",
         "date_format": "%B %d, %Y"
 
     }

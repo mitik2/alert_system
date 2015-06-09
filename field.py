@@ -82,11 +82,17 @@ class field(empty_field):
                     if m2:
                         k = m2.group(1)
                         self.date = datetime.datetime.strptime(m2.group(1), self.data_dic[self.name]["date_format"])
-                        self.TableObj[self.soft_name][self.is_official] = self
-                        self.TableStr[self.soft_name][self.is_official] = self.return_date()
-                        self.TableStr[self.soft_name][2] = self.data_dic[self.name]["date_link_beg"] + self.version + self.data_dic[self.name]["date_link_end"]
+                        self.generate_table(self.data_dic[self.name]["date_link_beg"] + self.version + self.data_dic[self.name]["date_link_end"])
                         return
         raise KeyError('ERROR: No new releases were found, please change url or REGEX matching pattern')
+
+
+
+    def generate_table(self,download_link=""):
+        self.TableObj[self.soft_name][self.is_official] = self
+        self.TableStr[self.soft_name][self.is_official] = self.return_date()
+        if download_link!="":
+            self.TableStr[self.soft_name][2] = download_link
 
     def get_data_ios_beta(self):
         """
@@ -106,25 +112,39 @@ class field(empty_field):
                 self.beta = m.group(2)
                 self.date = \
                     datetime.datetime.fromtimestamp(mktime(e.published_parsed))
-                self.TableObj[self.soft_name][self.is_official] = self
-                self.TableStr[self.soft_name][self.is_official] = self.return_date()
+                self.generate_table()
                 return
-        raise KeyError('ERROR: No new releases in the rss feed, please change RSS url or REGEX matching pattern'
-                       )
+        raise KeyError('ERROR: No new releases in the rss feed, please change RSS url or REGEX matching pattern')
 
     def get_data_chrome_driver(self):
         try:
             link = self.data_dic[self.name]["link"]
-            version = urllib2.urlopen(link).read()
-            req = urllib2.Request(link)
-            url_handle = urllib2.urlopen(req)
-            headers = url_handle.info()
+            self.version = urllib2.urlopen(link).read()
 
-            etag = headers.getheader("ETag")
-            last_modified = headers.getheader("Last-Modified")
-            print(last_modified)
+
+            xml = urllib2.urlopen(self.data_dic[self.name]["link2"]).read()
+            soup = BeautifulSoup(xml,'xml')
+
+            files = []
+            dates = []
+
+            for file in soup.findAll('Contents'):
+                file_name = file.find('Key').contents[0]
+                if file_name.startswith(self.version+"/chromedriver_"):
+                    files.append(file_name[len(self.version+"/chromedriver_"):])
+                    date_string = file.find('LastModified').contents[0]
+                    date = (datetime.datetime.strptime(date_string[:10],self.data_dic[self.name]["format"]))
+                    dates.append(date)
+                    if file_name.startswith(self.version+"/chromedriver_win32"):
+                        self.date = date
+
+
+            self.generate_table(self.data_dic[self.name]["link_download"]+self.version+"/")
+
+
         except:
             raise KeyError('ERROR: Error reading version or date.')
+
 
     def get_data_apple(self):
         """
@@ -173,6 +193,9 @@ class field(empty_field):
         elif self.type == 'hidden_in_html_source':
             self.is_official = 1
             self.get_data_firefox()
+        elif self.type == "plain_file":
+            self.is_official = 1
+            self.get_data_chrome_driver()
 
     @classmethod
     def generate_html(cls):

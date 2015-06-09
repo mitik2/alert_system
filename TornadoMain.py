@@ -41,6 +41,7 @@ def check_updates():
     b = field('ios beta')
     c = field("firefox official")
     d = field("safari official")
+    e = field("chrome webdrive")
     if field.load_and_compare():
         print(strftime("%Y-%m-%d, %H:%M:%S: ", gmtime()) + "End of update: There was an update\n")
     else:
